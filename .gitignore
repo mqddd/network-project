@@ -1,0 +1,11 @@
+# text files
+*.txt
+
+# json files
+*.json
+
+# ide files
+.vscode/
+
+# project modules
+node_modules/
