@@ -1,23 +1,17 @@
 
 const $loginPage = $('.login.page');
 const $gamePage = $('.game.page');  
+const $usernameInput = $('.usernameInput');
 
-const socket = io("ws://localhost:3000");
+const socket = io();
 
 function hi() {
-
     $loginPage.fadeOut();
     $gamePage.show();
-    /* socket.on('login', data => {
-        console.log(data);
-    }); */
-
-    
-    
+    socket.emit('name', {data: $usernameInput.val()}); 
 }
 
-
 socket.on('message', (data) => {
-    console.log('data');
     console.log(data);
 });
+  

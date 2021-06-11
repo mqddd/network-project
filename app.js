@@ -26,12 +26,16 @@ io.on('connection', socket => {
     console.log(count); */
 
     console.log(socket.rooms); // Set { <socket.id> }
-    socket.join("room" + i);
+    socket.join("room");
     console.log(socket.rooms); 
     i++;
+    socket.emit('message', 'hiiii');
     socket.on('disconnect', (reason) => {
         console.log(reason);
-      });
+    });
+    socket.on('name', (data) => {
+        console.log(data.data);
+    });
 });
 
 io.of("/").adapter.on("create-room", (room) => {
