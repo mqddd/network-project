@@ -4,4 +4,4 @@ const io = socket.getIO();
 
 const users = [];
 
-io.emit('login', 'hi');
+/* io.emit('login', 'hi'); */
