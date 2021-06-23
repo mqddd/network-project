@@ -1,9 +1,6 @@
 # text files
 *.txt
 
-# json files
-*.json
-
 # ide files
 .vscode/
 
