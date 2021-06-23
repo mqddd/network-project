@@ -7,6 +7,7 @@ const app = express();
 const httpServer = require('http').createServer(app);
 
 const mainPage = require('./controller/main-controller');
+const { createGame, joinGame, submitCell } = require('./game');
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -18,23 +19,22 @@ app.use(mainPage.mainPage);
 
 const io = require('./socket').init(httpServer);    
 
-let i = 0;
+const rooms = io.of("/").adapter.rooms;
+
 
 io.on('connection', socket => {
     console.log(socket.id + ' connected!');
-    /* const count = io.engine.clientsCount;
-    console.log(count); */
 
-    console.log(socket.rooms); // Set { <socket.id> }
-    socket.join("room");
-    console.log(socket.rooms); 
-    i++;
-    socket.emit('message', 'hiiii');
-    socket.on('disconnect', (reason) => {
-        console.log(reason);
+    socket.on('create game', () => {
+        createGame(socket);
     });
-    socket.on('name', (data) => {
-        console.log(data.data);
+
+    socket.on('join game', (data) => {
+        joinGame(socket, rooms, data);
+    });
+
+    socket.on('submit cell', (data) => {
+        submitCell(socket, rooms, data);
     });
 });
 
